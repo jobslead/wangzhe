@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>王者攻略局 - 王者荣耀攻略站 MVP</title>
+    <meta
+      name="description"
+      content="王者荣耀攻略站 MVP，面向上分、英雄出装、铭文、对线、团战和版本强势内容。"
+    />
+    <style>
+      :root {
+        --ink: #0b1020;
+        --night: #111827;
+        --royal: #1751a6;
+        --royal-2: #2f78d6;
+        --gold: #f2c766;
+        --red: #d95050;
+        --jade: #2dc58d;
+        --paper: #f7f2e7;
+        --text: #f9fbff;
+        --muted: #aeb8c8;
+        --line: rgba(255, 255, 255, 0.14);
+        --panel: rgba(255, 255, 255, 0.08);
+        --panel-strong: rgba(255, 255, 255, 0.13);
+        --shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+        --radius: 8px;
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          linear-gradient(135deg, rgba(217, 80, 80, 0.18), transparent 28%),
+          linear-gradient(235deg, rgba(242, 199, 102, 0.18), transparent 30%),
+          linear-gradient(180deg, #0b1020 0%, #131a2b 48%, #1c1720 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(11, 16, 32, 0.82);
+        backdrop-filter: blur(16px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(242, 199, 102, 0.55);
+        border-radius: var(--radius);
+        color: var(--gold);
+        background: linear-gradient(135deg, rgba(242, 199, 102, 0.16), rgba(23, 81, 166, 0.34));
+        box-shadow: inset 0 0 24px rgba(242, 199, 102, 0.12);
+      }
+
+      .brand-sub {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .nav {
+        display: flex;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav a:hover {
+        color: var(--gold);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 28px;
+        align-items: center;
+        min-height: 420px;
+        padding: 34px 0 22px;
+      }
+
+      .hero-copy h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: 56px;
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .hero-copy p {
+        max-width: 720px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .search-panel {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        max-width: 720px;
+      }
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 14px;
+        border: 1px solid rgba(242, 199, 102, 0.34);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .search-box input {
+        width: 100%;
+        border: 0;
+        outline: 0;
+        color: var(--text);
+        background: transparent;
+      }
+
+      .search-box input::placeholder {
+        color: rgba(249, 251, 255, 0.54);
+      }
+
+      .primary-btn {
+        min-height: 48px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: var(--radius);
+        color: #181204;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--gold), #ffe39b);
+        cursor: pointer;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .tag {
+        min-height: 36px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.06);
+        cursor: pointer;
+      }
+
+      .tag.active,
+      .tag:hover {
+        color: #171003;
+        border-color: transparent;
+        background: var(--gold);
+      }
+
+      .map-art {
+        width: 100%;
+        aspect-ratio: 1;
+        border: 1px solid rgba(242, 199, 102, 0.24);
+        border-radius: var(--radius);
+        background: linear-gradient(145deg, rgba(23, 81, 166, 0.28), rgba(217, 80, 80, 0.13));
+        box-shadow: var(--shadow);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin: 24px 0 14px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .section-head p,
+      .count {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .need-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .need-card,
+      .guide-card,
+      .topic-card,
+      .template-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      }
+
+      .need-card {
+        padding: 16px;
+        border-top: 3px solid var(--gold);
+      }
+
+      .need-card:nth-child(2) {
+        border-top-color: var(--royal-2);
+      }
+
+      .need-card:nth-child(3) {
+        border-top-color: var(--red);
+      }
+
+      .need-card:nth-child(4) {
+        border-top-color: var(--jade);
+      }
+
+      .need-card strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 17px;
+      }
+
+      .need-card p,
+      .guide-card p,
+      .topic-card p,
+      .template-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 14px;
+      }
+
+      .guide-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .guide-card {
+        display: block;
+        min-height: 178px;
+        padding: 16px;
+        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      }
+
+      .guide-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(242, 199, 102, 0.42);
+        background: var(--panel-strong);
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border-radius: var(--radius);
+        color: #161006;
+        background: var(--gold);
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .lane {
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .guide-card h3,
+      .topic-card h3,
+      .template-card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        line-height: 1.35;
+      }
+
+      .topic-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .topic-card {
+        padding: 16px;
+      }
+
+      .template-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+
+      .template-card {
+        padding: 18px;
+      }
+
+      .template-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .template-row {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .step {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: var(--radius);
+        color: #161006;
+        background: var(--gold);
+        font-weight: 900;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0 38px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .template-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: 0;
+        }
+
+        .map-art {
+          max-width: 520px;
+        }
+
+        .need-grid,
+        .topic-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .guide-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(var(--max), calc(100% - 20px));
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 12px 0;
+        }
+
+        .nav {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        .hero-copy h1 {
+          font-size: 36px;
+        }
+
+        .search-panel,
+        .need-grid,
+        .guide-grid,
+        .topic-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#top">
+          <span class="brand-mark">王</span>
+          <span>
+            王者攻略局
+            <span class="brand-sub">Honor of Kings Guide MVP</span>
+          </span>
+        </a>
+        <nav class="nav">
+          <a href="#needs">用户需求</a>
+          <a href="#guides">攻略库</a>
+          <a href="#topics">专题</a>
+          <a href="#template">模板</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top" class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>王者荣耀攻略站，先解决玩家怎么上分。</h1>
+          <p>
+            MVP 优先覆盖搜索量最高、决策最急的内容：英雄怎么玩、出装铭文怎么配、当前版本谁强、对线怎么赢、团战怎么打、被谁克制怎么处理。
+          </p>
+
+          <div class="search-panel">
+            <label class="search-box" for="searchInput">
+              <span>⌕</span>
+              <input id="searchInput" type="search" placeholder="搜英雄、位置、出装、铭文、克制、连招..." />
+            </label>
+            <button class="primary-btn" type="button">查攻略</button>
+          </div>
+
+          <div class="tag-row" id="tagRow">
+            <button class="tag active" data-filter="all">全部</button>
+            <button class="tag" data-filter="英雄">英雄</button>
+            <button class="tag" data-filter="出装">出装</button>
+            <button class="tag" data-filter="铭文">铭文</button>
+            <button class="tag" data-filter="对线">对线</button>
+            <button class="tag" data-filter="上分">上分</button>
+            <button class="tag" data-filter="版本">版本</button>
+          </div>
+        </div>
+
+        <svg class="map-art" viewBox="0 0 420 420" role="img" aria-label="王者峡谷战术地图示意图">
+          <defs>
+            <linearGradient id="laneGold" x1="0" x2="1">
+              <stop offset="0" stop-color="#f2c766" stop-opacity="0.25" />
+              <stop offset="1" stop-color="#f2c766" stop-opacity="0.85" />
+            </linearGradient>
+            <linearGradient id="river" x1="0" x2="1">
+              <stop offset="0" stop-color="#2f78d6" stop-opacity="0.3" />
+              <stop offset="1" stop-color="#2dc58d" stop-opacity="0.36" />
+            </linearGradient>
+          </defs>
+          <rect width="420" height="420" fill="#111827" />
+          <path d="M40 360 L360 40" stroke="url(#laneGold)" stroke-width="22" stroke-linecap="round" />
+          <path d="M64 64 L356 356" stroke="#d95050" stroke-opacity="0.35" stroke-width="16" stroke-linecap="round" />
+          <path d="M210 30 C160 120 270 160 210 250 C175 303 225 335 198 390" stroke="url(#river)" stroke-width="44" fill="none" />
+          <path d="M54 210 H366" stroke="#f7f2e7" stroke-opacity="0.18" stroke-width="10" stroke-linecap="round" />
+          <circle cx="64" cy="356" r="28" fill="#2f78d6" stroke="#f2c766" stroke-width="3" />
+          <circle cx="356" cy="64" r="28" fill="#d95050" stroke="#f2c766" stroke-width="3" />
+          <circle cx="110" cy="110" r="12" fill="#f2c766" />
+          <circle cx="310" cy="310" r="12" fill="#f2c766" />
+          <circle cx="210" cy="210" r="18" fill="#2dc58d" stroke="#f7f2e7" stroke-opacity="0.55" stroke-width="2" />
+          <text x="210" y="406" text-anchor="middle" fill="#aeb8c8" font-size="13">上路 · 中路 · 发育路 · 野区节奏</text>
+        </svg>
+      </section>
+
+      <section id="needs">
+        <div class="section-head">
+          <div>
+            <h2>用户需求分析</h2>
+            <p>王者攻略站的用户大多不是来“随便看看”，而是带着一局比赛里的具体问题来找答案。</p>
+          </div>
+        </div>
+
+        <div class="need-grid">
+          <article class="need-card">
+            <strong>上分决策</strong>
+            <p>想知道当前版本选什么英雄、什么位置好上分，以及低星、王者、巅峰赛的打法差异。</p>
+          </article>
+          <article class="need-card">
+            <strong>英雄速查</strong>
+            <p>开局前快速查出装、铭文、技能加点、召唤师技能、连招和克制关系。</p>
+          </article>
+          <article class="need-card">
+            <strong>对局问题</strong>
+            <p>被压线、被抓、打不动前排、团战蒸发时，需要可执行的处理方案。</p>
+          </article>
+          <article class="need-card">
+            <strong>版本更新</strong>
+            <p>玩家关心增强削弱后谁还能玩、装备改动影响谁，以及旧攻略是否过期。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="guides">
+        <div class="section-head">
+          <div>
+            <h2>攻略库 MVP</h2>
+            <p>先做高频入口，后续每张卡都能扩成独立详情页。</p>
+          </div>
+          <span class="count" id="resultCount">显示 6 篇内容</span>
+        </div>
+
+        <div class="guide-grid" id="guideList">
+          <a class="guide-card guide-item" href="hero-daaji.html" data-tags="英雄,出装,铭文">
+            <div class="card-top">
+              <span class="pill">英雄速查</span>
+              <span class="lane">中路 / 法师</span>
+            </div>
+            <h3>妲己怎么出装：爆发流、蹲草思路和后期秒人细节</h3>
+            <p>适合新手快速掌握一套稳定打法，包含铭文、连招、蹲草点和反制提醒。</p>
+          </a>
+
+          <a class="guide-card guide-item" href="#template" data-tags="英雄,对线,上分">
+            <div class="card-top">
+              <span class="pill">对抗路</span>
+              <span class="lane">边路 / 单带</span>
+            </div>
+            <h3>对抗路怎么不崩：兵线、换血、支援和单带节奏</h3>
+            <p>把“打不过怎么办”拆成能照做的流程，适合低中分段稳定提升。</p>
+          </a>
+
+          <a class="guide-card guide-item" href="#template" data-tags="版本,上分,英雄">
+            <div class="card-top">
+              <span class="pill">版本强势</span>
+              <span class="lane">排位 / 巅峰赛</span>
+            </div>
+            <h3>当前版本上分英雄池：各位置优先练哪些英雄</h3>
+            <p>按位置给出主练、备选和禁用建议，方便玩家快速搭建自己的英雄池。</p>
+          </a>
+
+          <a class="guide-card guide-item" href="#template" data-tags="出装,铭文,英雄">
+            <div class="card-top">
+              <span class="pill">装备铭文</span>
+              <span class="lane">全位置</span>
+            </div>
+            <h3>出装铭文为什么这么配：核心属性和替换规则</h3>
+            <p>不只给固定方案，还解释什么时候换鞋、什么时候补防装、什么时候出制裁。</p>
+          </a>
+
+          <a class="guide-card guide-item" href="#template" data-tags="对线,上分">
+            <div class="card-top">
+              <span class="pill">团战思路</span>
+              <span class="lane">中后期</span>
+            </div>
+            <h3>团战总是输怎么办：开团、反打、保后排和绕后判断</h3>
+            <p>按阵容类型拆解站位和入场时机，帮助玩家把优势局转成胜势。</p>
+          </a>
+
+          <a class="guide-card guide-item" href="#template" data-tags="版本,对线,英雄">
+            <div class="card-top">
+              <span class="pill">克制查询</span>
+              <span class="lane">BP / 对线</span>
+            </div>
+            <h3>被热门英雄压制怎么办：克制选择和局内处理</h3>
+            <p>围绕常见强势英雄整理反制英雄、装备选择、清线策略和团战目标。</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="topics">
+        <div class="section-head">
+          <div>
+            <h2>专题结构</h2>
+            <p>正式站点建议先做这些栏目，内容边界清楚，也方便 SEO 和站内搜索。</p>
+          </div>
+        </div>
+
+        <div class="topic-grid">
+          <article class="topic-card">
+            <h3>英雄图鉴</h3>
+            <p>每个英雄一页，包含定位、出装、铭文、连招、克制和适用分段。</p>
+          </article>
+          <article class="topic-card">
+            <h3>版本梯度</h3>
+            <p>按位置整理 T 度、增强削弱、装备变化和适合上分的英雄池。</p>
+          </article>
+          <article class="topic-card">
+            <h3>分路教学</h3>
+            <p>对抗路、中路、发育路、游走、打野分别做节奏和常见失误教程。</p>
+          </article>
+          <article class="topic-card">
+            <h3>对局诊断</h3>
+            <p>把玩家常见问题做成问答：被抓、逆风、不会开团、经济落后等。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="template-grid" id="template">
+        <article class="template-card">
+          <h3>攻略详情页模板</h3>
+          <p>每篇攻略都要让玩家在 10 秒内拿到结论，再决定是否继续看细节。</p>
+          <div class="template-list">
+            <div class="template-row">
+              <span class="step">1</span>
+              <p><strong>适用场景：</strong>英雄、分路、分段、版本、对局情况。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">2</span>
+              <p><strong>结论先行：</strong>推荐出装、铭文、打法或克制方案。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">3</span>
+              <p><strong>实战步骤：</strong>前期、中期、后期分别怎么打。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">4</span>
+              <p><strong>替代方案：</strong>逆风、缺配合、被针对时怎么调整。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="template-card">
+          <h3>MVP 优先级</h3>
+          <p>先把用户最常搜、最容易转化为长期访问的内容做深。</p>
+          <div class="template-list">
+            <div class="template-row">
+              <span class="step">A</span>
+              <p><strong>第一批：</strong>30 个热门英雄详情页，加出装铭文和克制。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">B</span>
+              <p><strong>第二批：</strong>五个分路教学，覆盖节奏、兵线、团战职责。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">C</span>
+              <p><strong>第三批：</strong>版本梯度页，持续更新增强削弱后的推荐。</p>
+            </div>
+            <div class="template-row">
+              <span class="step">D</span>
+              <p><strong>第四批：</strong>克制查询和对局问题库，提高复访价值。</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer class="footer">
+        王者攻略局 MVP · 先把“搜得到、看得懂、能上分”做出来。
+      </footer>
+    </main>
+
+    <script>
+      const searchInput = document.getElementById("searchInput");
+      const guideItems = Array.from(document.querySelectorAll(".guide-item"));
+      const resultCount = document.getElementById("resultCount");
+      const tags = Array.from(document.querySelectorAll("[data-filter]"));
+
+      let activeFilter = "all";
+
+      function normalize(text) {
+        return text.toLowerCase().trim();
+      }
+
+      function applyFilter() {
+        const query = normalize(searchInput.value);
+        let visible = 0;
+
+        guideItems.forEach((item) => {
+          const content = normalize(item.textContent);
+          const tagList = (item.dataset.tags || "").split(",");
+          const matchesQuery = !query || content.includes(query);
+          const matchesTag = activeFilter === "all" || tagList.includes(activeFilter);
+          const show = matchesQuery && matchesTag;
+
+          item.classList.toggle("hidden", !show);
+          if (show) visible += 1;
+        });
+
+        resultCount.textContent = `显示 ${visible} 篇内容`;
+      }
+
+      tags.forEach((tag) => {
+        tag.addEventListener("click", () => {
+          activeFilter = tag.dataset.filter;
+          tags.forEach((item) => item.classList.remove("active"));
+          tag.classList.add("active");
+          applyFilter();
+        });
+      });
+
+      document.querySelector(".primary-btn").addEventListener("click", applyFilter);
+      searchInput.addEventListener("input", applyFilter);
+      applyFilter();
+    </script>
+  </body>
+</html>

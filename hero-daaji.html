@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>妲己出装铭文攻略 - 王者攻略局</title>
+    <meta
+      name="description"
+      content="王者荣耀妲己攻略，包含出装、铭文、连招、蹲草思路、分段打法、克制关系和常见错误。"
+    />
+    <style>
+      :root {
+        --ink: #0b1020;
+        --night: #111827;
+        --royal: #1751a6;
+        --gold: #f2c766;
+        --red: #d95050;
+        --jade: #2dc58d;
+        --text: #f9fbff;
+        --muted: #aeb8c8;
+        --line: rgba(255, 255, 255, 0.14);
+        --panel: rgba(255, 255, 255, 0.08);
+        --panel-strong: rgba(255, 255, 255, 0.13);
+        --radius: 8px;
+        --max: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          linear-gradient(135deg, rgba(217, 80, 80, 0.18), transparent 28%),
+          linear-gradient(235deg, rgba(242, 199, 102, 0.18), transparent 30%),
+          linear-gradient(180deg, #0b1020 0%, #131a2b 52%, #1c1720 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(11, 16, 32, 0.82);
+        backdrop-filter: blur(16px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 68px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(242, 199, 102, 0.55);
+        border-radius: var(--radius);
+        color: var(--gold);
+        background: linear-gradient(135deg, rgba(242, 199, 102, 0.16), rgba(23, 81, 166, 0.34));
+      }
+
+      .nav {
+        display: flex;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav a:hover {
+        color: var(--gold);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 330px;
+        gap: 28px;
+        align-items: center;
+        padding: 34px 0 18px;
+      }
+
+      .crumb {
+        color: var(--gold);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 12px 0;
+        font-size: 48px;
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 760px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .hero-card,
+      .panel,
+      .quick-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+      }
+
+      .hero-card {
+        padding: 18px;
+        border-top: 3px solid var(--gold);
+      }
+
+      .hero-card strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .hero-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 14px;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 0 10px;
+        border-radius: var(--radius);
+        color: #171003;
+        background: var(--gold);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 18px;
+        align-items: start;
+        padding-bottom: 38px;
+      }
+
+      .toc {
+        position: sticky;
+        top: 88px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .toc strong {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .toc a {
+        display: block;
+        padding: 8px 0;
+        color: var(--muted);
+        font-size: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .toc a:hover {
+        color: var(--gold);
+      }
+
+      .content {
+        display: grid;
+        gap: 14px;
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .panel h2 {
+        margin: 0 0 12px;
+        font-size: 24px;
+      }
+
+      .panel h3 {
+        margin: 16px 0 8px;
+        font-size: 18px;
+      }
+
+      .panel p,
+      .panel li {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .panel p {
+        margin: 0;
+      }
+
+      .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .quick-card {
+        padding: 14px;
+        background: var(--panel-strong);
+      }
+
+      .quick-card strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--gold);
+      }
+
+      .quick-card span {
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .build-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .build-row {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .build-row strong {
+        color: var(--gold);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 10px;
+      }
+
+      .time-step {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 12px;
+      }
+
+      .time-step strong {
+        color: var(--gold);
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0 38px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .toc {
+          position: static;
+        }
+
+        .quick-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .shell {
+          width: min(var(--max), calc(100% - 20px));
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 12px 0;
+        }
+
+        .nav {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        h1 {
+          font-size: 34px;
+        }
+
+        .build-row,
+        .time-step {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">王</span>
+          <span>王者攻略局</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">首页</a>
+          <a href="#build">出装铭文</a>
+          <a href="#combo">连招打法</a>
+          <a href="#counter">克制关系</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <div class="crumb">英雄攻略 / 中路法师 / 新手友好</div>
+          <h1>妲己怎么出装：爆发流、蹲草思路和后期秒人细节</h1>
+          <p class="lead">
+            妲己的核心价值是稳定点控和单点爆发。她不适合硬开团，最适合用视野差找机会，先秒掉脆皮或逼出关键净化。
+          </p>
+          <div class="meta-row">
+            <span class="tag">定位：法师</span>
+            <span class="tag">难度：低</span>
+            <span class="tag">适合：低中分段上手</span>
+            <span class="tag">更新时间：2026-05-21</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <strong>一句话结论</strong>
+          <p>
+            前期稳清线，中期跟打野找落单，后期蹲草秒核心。出装以法强、穿透、保命为主，铭文优先法术穿透和移速。
+          </p>
+        </aside>
+      </section>
+
+      <section class="layout">
+        <aside class="toc">
+          <strong>目录</strong>
+          <a href="#quick">速查结论</a>
+          <a href="#build">出装铭文</a>
+          <a href="#combo">连招打法</a>
+          <a href="#timeline">分阶段思路</a>
+          <a href="#counter">克制关系</a>
+          <a href="#mistakes">常见错误</a>
+        </aside>
+
+        <div class="content">
+          <section class="panel" id="quick">
+            <h2>速查结论</h2>
+            <div class="quick-grid">
+              <div class="quick-card">
+                <strong>推荐技能</strong>
+                <span>闪现。用来调整二技能距离、追击残血，或在团战后撤保命。</span>
+              </div>
+              <div class="quick-card">
+                <strong>核心打法</strong>
+                <span>清线后消失在视野里，优先抓无位移射手、法师和残血打野。</span>
+              </div>
+              <div class="quick-card">
+                <strong>关键提醒</strong>
+                <span>不要第一个露头打团，等对方关键位交位移后再进场。</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="build">
+            <h2>出装铭文</h2>
+            <div class="build-list">
+              <div class="build-row">
+                <strong>常规出装</strong>
+                <span>冷静之靴、回响之杖、博学者之怒、虚无法杖、辉月、贤者之书。</span>
+              </div>
+              <div class="build-row">
+                <strong>逆风调整</strong>
+                <span>被刺客切得很凶时，辉月可以提前出；对面回血强时补梦魇之牙。</span>
+              </div>
+              <div class="build-row">
+                <strong>铭文推荐</strong>
+                <span>梦魇、心眼、狩猎。核心是法穿、攻速手感和移速，方便清线转线。</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="combo">
+            <h2>连招打法</h2>
+            <h3>标准秒人</h3>
+            <p>二技能控制起手，接三技能打满爆发，最后一技能补伤害。目标是让对手在被控期间吃完整套技能。</p>
+            <h3>蹲草打法</h3>
+            <p>提前站在河道草、红蓝区入口草或边路转线草里，等目标靠近后再二技能起手。不要在没有视野时盲目追深。</p>
+          </section>
+
+          <section class="panel" id="timeline">
+            <h2>分阶段思路</h2>
+            <div class="timeline">
+              <div class="time-step">
+                <strong>前期</strong>
+                <p>先保证清线，不要为了消耗漏兵。二级后可以配合打野看河道和边路机会。</p>
+              </div>
+              <div class="time-step">
+                <strong>中期</strong>
+                <p>尽量跟队友行动，围绕野区入口和中路草丛做埋伏，优先秒掉落单脆皮。</p>
+              </div>
+              <div class="time-step">
+                <strong>后期</strong>
+                <p>站位保守，别急着交二技能。等对方刺客露头或射手走位靠前，再用控制打开突破口。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="counter">
+            <h2>克制关系</h2>
+            <h3>比较好打</h3>
+            <p>无位移脆皮、依赖走位输出的射手，以及没有净化或保命装备的法师。</p>
+            <h3>比较难打</h3>
+            <p>高机动刺客、带净化的核心位、能强开后排的阵容。遇到这类阵容时，辉月和站位比伤害更重要。</p>
+          </section>
+
+          <section class="panel" id="mistakes">
+            <h2>常见错误</h2>
+            <ul>
+              <li>把二技能随手丢给前排，导致对面刺客进场时没有控制。</li>
+              <li>清完线后站在中路不动，浪费妲己蹲草和抓人的价值。</li>
+              <li>后期为了秒人走太深，结果技能没打完就被反开。</li>
+            </ul>
+          </section>
+        </div>
+      </section>
+
+      <footer class="footer">
+        王者攻略局 · 这页可以复制成其他英雄详情页模板。
+      </footer>
+    </main>
+  </body>
+</html>
